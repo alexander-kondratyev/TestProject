@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "fc634db8-ea2f-4983-8cb8-55042da79d96",
+		"name": "Simple API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42848319",
+		"_collection_link": "https://bonus-integration-qa-team.postman.co/workspace/Bonus-Integration-QA-Team~0a9d74c5-a2c0-4589-844f-37223e103e55/collection/42848319-fc634db8-ea2f-4983-8cb8-55042da79d96?action=share&source=collection_link&creator=42848319"
+	},
+	"item": [
+		{
+			"name": "Valid GET Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test('Response contains Test data', function () {",
+							"    pm.expect(pm.response.text()).to.include('Test data: hello');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/test?param=hello",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"test"
+					],
+					"query": [
+						{
+							"key": "param",
+							"value": "hello"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Missing Param (400)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/test",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forbidden (403)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 403', function () {",
+							"    pm.response.to.have.status(403);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/test?param=forbidden",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"test"
+					],
+					"query": [
+						{
+							"key": "param",
+							"value": "forbidden"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	]
+}
